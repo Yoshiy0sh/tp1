@@ -8,7 +8,7 @@ public class Parade extends Bataille {
 	
 	@Override
 	public String toString() throws IllegalStateException{
-		return "cette carte est une parade de type : "+super.getType().getCasParade();
+		return super.getType().getCasParade();
 	}
 
 }

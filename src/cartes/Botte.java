@@ -8,7 +8,7 @@ public class Botte extends Probleme {
 
 	@Override
 	public String toString() throws IllegalStateException{
-		return "Cette carte est une botte de type : "+super.getType().getCasBotte();
+		return super.getType().getCasBotte();
 	}
 
 }
