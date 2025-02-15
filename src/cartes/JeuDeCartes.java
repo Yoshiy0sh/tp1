@@ -4,11 +4,19 @@ public class JeuDeCartes {
 	
 	private Configuration[] typesDeCartes;
 	
+	public void ajouterConfiguration(Carte[] cartes, int[] nbCartes) {
+		Configuration[] tabFinal = new Configuration[nbCartes.length];
+		for (int i = 0; i < tabFinal.length; i++) {
+			tabFinal[i] = new Configuration(cartes[i],nbCartes[i]);
+		}
+		typesDeCartes = tabFinal;
+	}
+	
 	public String affichageJeuDeCartes() {
 		StringBuilder chaine = new StringBuilder();
 		chaine.append("JEU : \n\n");
 		for(Configuration config : typesDeCartes) {
-			chaine.append(config.getNbExemplaires() + " " + config.getCarte().toString());
+			chaine.append(config.getNbExemplaires() + " " + config.getCarte().toString()+"\n");
 		}
 		return chaine.toString();
 	}
@@ -20,6 +28,13 @@ public class JeuDeCartes {
 		}
 		Carte[] tab = new Carte[nbCartes];
 		
+		int indexTab = 0;
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < typesDeCartes[i].getNbExemplaires(); j++) {
+				tab[indexTab + j] = typesDeCartes[j].getCarte();
+				indexTab ++;
+			}
+		}
 		return tab;
 	}
 	
@@ -27,7 +42,7 @@ public class JeuDeCartes {
 		private int nbExemplaires;
 		private Carte carte;
 		
-		public Configuration(Carte carte, int nbExemplaires) {
+		private Configuration(Carte carte, int nbExemplaires) {
 			this.carte = carte;
 			this.nbExemplaires = nbExemplaires;
 		}
