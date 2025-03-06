@@ -4,7 +4,7 @@ public abstract class Carte {
 	public abstract String toString();
 	
 	@Override
-	public boolean equals(Object obj) throws NullPointerException{
+	public boolean equals(Object obj){
 		boolean rep = false;
 		try {
 			rep = (this.getClass() == obj.getClass());

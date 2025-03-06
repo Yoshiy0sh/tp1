@@ -38,6 +38,15 @@ public class JeuDeCartes {
 		return tab;
 	}
 	
+	public boolean checkCount() {
+		Carte[] tabDonnerCartes = donnerCartes();
+		int compteur = 0;
+		for(Configuration config : typesDeCartes) {
+			compteur += config.getNbExemplaires();
+		}
+		return compteur == tabDonnerCartes.length;
+	}
+	
 	private class Configuration{
 		private int nbExemplaires;
 		private Carte carte;
