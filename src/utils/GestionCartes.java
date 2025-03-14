@@ -52,20 +52,15 @@ public class GestionCartes {
 	}
 	
 	public static <T> List<T> rassembler(List<T> liste) {
-		for (int i = 0; i < liste.size(); i++) {
-			if(Collections.frequency(liste,liste.get(i)) > 1) {
-				T elt = liste.get(i);
-				int freq = Collections.frequency(liste, elt);
-				while(liste.contains(elt)) {
-					liste.remove(elt);
-				}
-				liste = rassembler(liste);
-				for (int j = 0; j < freq; j++) {
-					liste.add(elt);
-				}
+		List<T> listeStock = new ArrayList<T>();
+		while(!liste.isEmpty()) {
+			T elt = liste.get(0);
+			while(liste.contains(elt)) {
+				liste.remove(elt);
+				listeStock.add(elt);
 			}
 		}
-		return liste;
+		return listeStock;
 	}
 	
 	public static <T> boolean verifierRassemblement(List<T> liste) {
@@ -104,7 +99,7 @@ public class GestionCartes {
 		System.out.println("liste mélangée sans erreur ? "
 		+ GestionCartes.verifierMelange(listeCarteNonMelangee, listeCartes));
 		listeCartes = GestionCartes.rassembler(listeCartes);
-		System.out.println(listeCartes);
+		System.out.println(listeCartes + "\n");
 		System.out.println("liste rassemblée sans erreur ? "
 		+ GestionCartes.verifierRassemblement(listeCartes));
 	}
