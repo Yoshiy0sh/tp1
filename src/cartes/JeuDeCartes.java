@@ -1,5 +1,7 @@
 package cartes;
 
+import java.util.Iterator;
+
 public class JeuDeCartes {
 	
 	private Configuration[] typesDeCartes;
@@ -21,6 +23,13 @@ public class JeuDeCartes {
 		return chaine.toString();
 	}
 	
+	public void affichageJeuDeCartes2() {
+		Carte[] tabCartes = donnerCartes();
+		for (Carte carte : tabCartes) {
+			System.out.println(carte);
+		}
+	}
+	
 	public Carte[] donnerCartes() {
 		int nbCartes = 0;
 		for(Configuration config : typesDeCartes) {
@@ -29,12 +38,13 @@ public class JeuDeCartes {
 		Carte[] tab = new Carte[nbCartes];
 		
 		int indexTab = 0;
-		for (int i = 0; i < tab.length; i++) {
+		for (int i = 0; i < typesDeCartes.length; i++) {
 			for (int j = 0; j < typesDeCartes[i].getNbExemplaires(); j++) {
-				tab[indexTab + j] = typesDeCartes[j].getCarte();
-				indexTab ++;
+				tab[indexTab] = typesDeCartes[i].getCarte();
+				indexTab++;
 			}
 		}
+		
 		return tab;
 	}
 	
