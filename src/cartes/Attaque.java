@@ -10,5 +10,4 @@ public class Attaque extends Bataille{
 	public String toString() throws IllegalStateException{
 		return super.getType().getCasAttaque();
 	}
-	
 }

@@ -10,6 +10,7 @@ import cartes.DebutLimite;
 import cartes.FinLimite;
 import cartes.Limite;
 import cartes.Parade;
+import cartes.Probleme;
 import cartes.Type;
 
 public class ZoneDeJeu {
@@ -18,13 +19,14 @@ public class ZoneDeJeu {
 	private ArrayList<Carte> listeBornes = new ArrayList<>();
 	
 	public int donnerLimitationVitesse() {
-		Carte last = listeLimites.get(listeLimites.size()-1);
-		if(listeLimites.isEmpty() || last.equals(new FinLimite())) {
+		if(listeLimites.isEmpty()) {
 			return 200;
 		}
-		else {
-			return 50;
+		Carte last = listeLimites.get(listeLimites.size()-1);
+		if(last.equals(new FinLimite())) {
+			return 200;
 		}
+		return 50;
 	}
 	
 	public int donnerKmParcourus() {
@@ -49,13 +51,19 @@ public class ZoneDeJeu {
 	}
 	
 	public boolean peutAvancer() {
+		if(listeBataille.isEmpty()) {
+			return false;
+		}
 		Carte last = listeBataille.get(listeBataille.size()-1);
 		return !listeBataille.isEmpty() && last.equals(new Parade(Type.FEU));
 	}
 	
 	private boolean estDepotFeuVertAutorise() {
+		if(listeBataille.isEmpty()) {
+			return true;
+		}
 		Carte last = listeBataille.get(listeBataille.size()-1);
-		return listeBataille.isEmpty() || last.equals(new Attaque(Type.FEU))
+		return last.equals(new Attaque(Type.FEU))
 				|| ((last instanceof Parade) && (!last.equals(new Parade(Type.FEU))));
 	}
 	
@@ -67,8 +75,10 @@ public class ZoneDeJeu {
 	
 	private boolean estDepotLimiteAutorise(Limite limite) {
 		if(limite instanceof DebutLimite) {
-			return listeLimites.isEmpty() || (listeLimites.get(listeLimites.size()-1) 
-					instanceof FinLimite);
+			if(listeLimites.isEmpty()) {
+				return true;
+			}
+			return (listeLimites.get(listeLimites.size()-1) instanceof FinLimite);
 		}
 		else {
 			return !listeLimites.isEmpty() && (listeLimites.get(listeLimites.size()-1) instanceof DebutLimite);
@@ -80,13 +90,21 @@ public class ZoneDeJeu {
 			return peutAvancer();
 		}
 		else if(bataille instanceof Parade) {
-			Carte last = listeBataille.get(listeBataille.size()-1);
 			if(bataille.equals(new Parade(Type.FEU))) {
-				return listeBataille.isEmpty() || last.equals(new Attaque(Type.FEU)) 
+				if(listeBataille.isEmpty()) {
+					return true;
+				}
+				Carte last = listeBataille.get(listeBataille.size()-1);
+				return last.equals(new Attaque(Type.FEU)) 
 						|| ((last instanceof Parade) && !last.equals(new Parade(Type.FEU)));
 			}
 			else {
-				return !listeBataille.isEmpty() && last.equals(bataille);
+				if(listeBataille.isEmpty()) {
+					return false;
+				}
+				Probleme last = (Probleme) listeBataille.get(listeBataille.size()-1);
+				Probleme probBataille = (Probleme) bataille;
+				return !listeBataille.isEmpty() && last.getType().equals(probBataille.getType());
 			}
 		}
 		return false;
