@@ -4,6 +4,11 @@ public abstract class Carte {
 	public abstract String toString();
 	
 	@Override
+	public int hashCode() {
+		return 31 * getClass().hashCode();
+	}
+	
+	@Override
 	public boolean equals(Object obj){
 		boolean rep = false;
 		try {

@@ -12,11 +12,25 @@ public abstract class Probleme extends Carte {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if(obj.getClass() == this.getClass()) {
-			Probleme probleme = (Probleme)obj;
-			return (this.type == probleme.getType());
-		}
-		else return false;
+	public int hashCode() {
+		return 31 * type.hashCode();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Probleme probleme) {
+			return this.type.equals(probleme.type);
+		}
+		return false;
+	}
+	
+	
+//	@Override
+//	public boolean equals(Object obj) {
+//		if(obj.getClass() == this.getClass()) {
+//			Probleme probleme = (Probleme)obj;
+//			return (this.type == probleme.getType());
+//		}
+//		else return false;
+//	}
 }

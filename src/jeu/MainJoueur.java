@@ -1,6 +1,7 @@
 package jeu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cartes.Carte;
 
@@ -14,6 +15,10 @@ public class MainJoueur {
 	public void jouer(Carte carte) {
 		assert(main.contains(carte));
 		main.remove(carte);
+	}
+	
+	public List<Carte> getMain() {
+		return main;
 	}
 	
 	@Override
